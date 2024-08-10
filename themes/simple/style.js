@@ -9,7 +9,9 @@ const Style = () => {
     
   // 底色
   .dark body{
-      background-color: black;
+      // background-color: black;
+      background-color: #1d1f21;
+      
   }
   // 文本不可选取
     .forbid-copy {
@@ -27,7 +29,8 @@ const Style = () => {
   }
   
   .dark #theme-simple .blog-item-title {
-    color: #d1d5db;
+    // color: #d1d5db;
+    color: #2bbc8a;
   }
   
   .notion {
