@@ -43,7 +43,7 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
         />
 
         {/* 图片封面 */}
-        {showPageCover && (
+        {/* {showPageCover && (
           <div className='md:w-5/12 overflow-hidden'>
             <Link href={post?.href}>
               <>
@@ -56,7 +56,7 @@ const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
               </>
             </Link>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   )
