@@ -52,10 +52,10 @@ export default function BlogRecommend(props) {
                   <div className='h-full w-full absolute opacity-80 group-hover:opacity-100 transition-all duration-1000 bg-gradient-to-b from-transparent to-black'></div>
                 </div>
 
-                <LazyImage
+                {/* <LazyImage
                   src={headerImage}
                   className='absolute top-0 w-full h-full object-cover object-center group-hover:scale-110 group-hover:brightness-50 transform duration-200'
-                />
+                /> */}
               </div>
             </Link>
           )
