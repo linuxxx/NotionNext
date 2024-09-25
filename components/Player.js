@@ -72,7 +72,10 @@ const Player = () => {
           type='playlist'
           preload='auto'
           lrc-type={siteConfig('MUSIC_PLAYER_METING_LRC_TYPE')}
-          api={siteConfig('MUSIC_PLAYER_METING_API')}
+          api={siteConfig(
+            'MUSIC_PLAYER_METING_API',
+            'https://api.injahow.cn/meting'
+          )}
           autoplay={autoPlay}
           order={siteConfig('MUSIC_PLAYER_ORDER')}
           server={siteConfig('MUSIC_PLAYER_METING_SERVER')}
