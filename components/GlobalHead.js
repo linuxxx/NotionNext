@@ -70,9 +70,9 @@ const GlobalHead = props => {
   const FACEBOOK_PAGE = siteConfig('FACEBOOK_PAGE', null, NOTION_CONFIG)
   // SEO关键词
   let keywords = meta?.tags || siteConfig('KEYWORDS')
-  if (post?.tags && post?.tags?.length > 0) {
-    keywords = post?.tags?.join(',')
-  }
+  // if (post?.tags && post?.tags?.length > 0) {
+  //   keywords = post?.tags?.join(',')
+  // }
 
   useEffect(() => {
     // 使用WebFontLoader字体加载
@@ -116,7 +116,7 @@ const GlobalHead = props => {
           content={SEO_BAIDU_SITE_VERIFICATION}
         />
       )}
-      <meta name='keywords' content={keywords} />
+      <meta name='keywords' content={title} />
       <meta name='description' content={description} />
       <meta property='og:locale' content={lang} />
       <meta property='og:title' content={title} />
