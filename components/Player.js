@@ -71,7 +71,7 @@ const Player = () => {
           fixed='true'
           type='playlist'
           preload='auto'
-          api='https://api.zigzagk.top/metingapi?server=tencent&type=playlist&id=9330992009'
+          api='https://meting.qjqq.cn?server=tencent&type=playlist&id=9330992009'
           autoplay={autoPlay}
           order={siteConfig('MUSIC_PLAYER_ORDER')}
           server={siteConfig('MUSIC_PLAYER_METING_SERVER')}
