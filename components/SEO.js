@@ -6,95 +6,6 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 /**
- * Generate JSON-LD structured data.
- * @param {*} props Component props
- * @param {*} meta SEO meta data from getSEOMeta
- * @param {string} url Canonical URL
- * @returns {object} JSON-LD object
- */
-const generateJsonLd = (props, meta, url) => {
-  const { siteInfo, post } = props
-  const TITLE = siteConfig('TITLE')
-  const AUTHOR = siteConfig('AUTHOR')
-  const LINK = siteConfig('LINK')
-  const BLOG_FAVICON = siteConfig('BLOG_FAVICON', null, props.NOTION_CONFIG) // Assuming favicon can represent logo
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    url: LINK,
-    name: TITLE,
-    description: siteInfo?.description,
-    publisher: {
-      '@type': 'Organization',
-      name: TITLE,
-      logo: {
-        '@type': 'ImageObject',
-        url: BLOG_FAVICON // Use favicon as logo if no specific logo URL is configured
-      }
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${LINK}/search/{search_term_string}`,
-      'query-input': 'required name=search_term_string'
-    }
-  }
-
-  if (meta?.type === 'Post' && post) {
-    const postJsonLd = {
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': url
-      },
-      headline: post.title,
-      description: post.summary || meta.description,
-      image: meta.image,
-      datePublished: new Date(post.publishDate).toISOString(),
-      dateModified: new Date(post.lastEditedDate).toISOString(),
-      author: {
-        '@type': 'Person',
-        name: AUTHOR
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: TITLE,
-        logo: {
-          '@type': 'ImageObject',
-          url: BLOG_FAVICON
-        }
-      }
-      // You can add more properties like keywords (articleSection) if needed
-      // articleSection: post.category?.[0]
-    }
-    return postJsonLd
-  }
-
-  // For other page types, you might want to refine this further
-  // For now, we return the basic WebSite schema or a simple WebPage
-  if (meta?.type !== 'website' && meta?.slug) {
-     const pageJsonLd = {
-      '@context': 'https://schema.org',
-      '@type': 'WebPage', // Or CollectionPage for category/tag pages
-      url: url,
-      name: meta.title,
-      description: meta.description,
-      isPartOf: {
-         '@type': 'WebSite',
-         url: LINK,
-         name: TITLE
-      }
-    }
-    return pageJsonLd;
-  }
-
-
-  return jsonLd
-}
-
-
-/**
  * 页面的Head头，有用于SEO
  * @param {*} param0
  * @returns
@@ -192,15 +103,24 @@ const SEO = props => {
       <link rel='icon' href={favicon} />
       <title>{title}</title>
       <meta name='theme-color' content={BACKGROUND_DARK} />
-      {/* viewport 和 charset 通常由 Next.js 或 _document.js 处理 */}
+      <meta
+        name='viewport'
+        content='width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0'
+      />
       <meta name='robots' content='follow, index' />
+      <meta charSet='UTF-8' />
       {SEO_GOOGLE_SITE_VERIFICATION && (
         <meta
           name='google-site-verification'
           content={SEO_GOOGLE_SITE_VERIFICATION}
         />
       )}
-      {/* Baidu verification 移至 _document.js */}
+      {SEO_BAIDU_SITE_VERIFICATION && (
+        <meta
+          name='baidu-site-verification'
+          content={SEO_BAIDU_SITE_VERIFICATION}
+        />
+      )}
       <meta name='keywords' content={keywords} />
       <meta name='description' content={description} />
       <meta property='og:locale' content={lang} />
@@ -213,7 +133,6 @@ const SEO = props => {
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:title' content={title} />
-      <meta name='twitter:image' content={image} />
 
       <link rel='icon' href={BLOG_FAVICON} />
 
@@ -244,15 +163,6 @@ const SEO = props => {
           <meta property='article:publisher' content={FACEBOOK_PAGE} />
         </>
       )}
-      {/* Canonical URL */}
-      <link rel='canonical' href={url} />
-
-      {/* JSON-LD Structured Data */}
-      <script
-        type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateJsonLd(props, meta, url)) }}
-      />
-
       {children}
     </Head>
   )

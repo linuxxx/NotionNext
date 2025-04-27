@@ -29,11 +29,6 @@ class MyDocument extends Document {
               />
             </>
           )}
-
-          {/* Baidu site verification */}
-          {BLOG.SEO_BAIDU_SITE_VERIFICATION && (
-            <meta name="baidu-site-verification" content={BLOG.SEO_BAIDU_SITE_VERIFICATION} />
-          )}
         </Head>
 
         <body>
